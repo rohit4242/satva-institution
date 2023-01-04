@@ -1,24 +1,50 @@
-import logo from './logo.svg';
+import Login from "./Pages/Login/Login";
+import AdminDashboard from "./Pages/AdminDashboard/Dashboard";
+import TeacherDashboard from "./Pages/TeacherDashboard/Dashboard"
+import StudentDashboard from "./Pages/StudentDashboard/Dashboard"
+import { UserAuthContextProvider } from "./Context/AuthContext";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import ProtectedRoute from "./PrivateRouter";
 import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserAuthContextProvider>
+      <Router>
+        <Routes>
+          <Route
+            path="/AdminDashboard"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/TeacherDashboard"
+            element={
+              <ProtectedRoute>
+                <TeacherDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/StudentDashboard"
+            element={
+              <ProtectedRoute>
+                <StudentDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<Login />} />
+        </Routes>
+      </Router>
+    </UserAuthContextProvider>
   );
 }
 
