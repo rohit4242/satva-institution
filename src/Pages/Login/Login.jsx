@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import GoogleButton from "react-google-button";
+import GoogleButton from "react-google-button";
 import { useUserAuth } from "../../Context/AuthContext";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { logIn } = useUserAuth();
+  const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
 
   let role, emails;
@@ -68,6 +68,18 @@ const Login = () => {
     }
   };
 
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await googleSignIn();
+      navigate("/AdminDashboard");
+    } catch (error) {
+      console.log(error.message);
+      setError(error.message);
+    }
+  };
+
   return (
     <section className="bg-gray-50">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -114,6 +126,10 @@ const Login = () => {
                 />
               </div>
               {error && <p className="text-2xl text-slate-900">{error}</p>}
+              <hr />
+              <div className="w-full flex justify-center items-center">
+                <GoogleButton onClick={handleGoogleSignIn} />
+              </div>
               <button
                 type="submit"
                 disabled={loading}

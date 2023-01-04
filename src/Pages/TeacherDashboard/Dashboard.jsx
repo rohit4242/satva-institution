@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <>
       <div className="p-4 mt-3 text-center">
-        Hello Welcome {user.email} <br />
+        Hello Welcome This is Teacher Dashboard <br />Your Email: {user.email} <br />
       </div>
       <div className="text-center">
         <button

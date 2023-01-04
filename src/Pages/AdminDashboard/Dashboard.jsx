@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <>
       <div className="p-4 mt-3 text-center">
-        Hello Welcome this is Admin Dashboard {user.email} <br />
+        Hello Welcome this is Admin Dashboard <br />Your Email: {user.email} <br />
       </div>
       <div className="text-center">
         <button className="w-20 text-center rounded-md bg-slate-500" onClick={handleLogout}>
